@@ -5,4 +5,10 @@
   margin: 0;
 }
 
+.hidden {
+  display: none !important;
+}
+
 @import "./navbar";
+@import "./product";
+@import "./popup";

@@ -1,0 +1,115 @@
+.product {
+  display: flex;
+  margin-top: 50px;
+  .img-container {
+    border: solid 1px #e6e6e6;
+    margin-right: 50px;
+    .img {
+      width: 400px;
+      height: auto;
+    }
+  }
+  .details {
+    width: 100%;
+
+
+    .details-container {
+      max-width: 525px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-radius: 3px;
+      border: solid 1px #e2e2e2;
+      background-color: #ffffff;
+      box-sizing: border-box;
+      .product-name {
+        font-size: 24px;
+      }
+      .product-item {
+        background: url(https://static.dsmcdn.com/frontend/web/production/ellipse.png) no-repeat 0 5px !important;
+        padding: 1px 0 0 15px;
+        color: #333;
+        font-size: 12px;
+        line-height: 16px;
+      }
+      .product-detail {
+        font-size: 14px;
+        line-height: 18px;
+        position: relative;
+        color: #666666;
+        margin-bottom: 5px;
+      }
+      .product-price {
+        font-size: 24px;
+        line-height: 28px;
+        font-weight: 600;
+        align-self: center;
+        margin-right: 6px;
+        color: #f27a1a;
+      }
+    }
+
+    .actions {
+      max-width: 525px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-radius: 3px;
+      border: solid 1px #e2e2e2;
+      background-color: #ffffff;
+      box-sizing: border-box;
+      display: flex;
+
+      .buy-button {
+        position: relative;
+        width: 100%;
+        height: 50px;
+        border-radius: 3px;
+        background-color: #f27a1a;
+        font-size: 20px;
+        overflow: hidden;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .favorite-button {
+        background: url(https://static.dsmcdn.com/frontend/web/production/favorites.svg) no-repeat center;
+        position: relative;
+        width: 100px;
+        background-color: #fcfbfa;
+        border: 1px solid #dcdcdc;
+        border-radius: 3px;
+        height: 50px;
+        margin-left: 20px;
+        padding: 0;
+        opacity: 0.5;
+      }
+
+      .notify-on-pricedrop-btn {
+        width: 100px;
+        border-radius: 3px;
+        background-color: #fcfbfa;
+        border: 1px solid #dcdcdc;
+        height: 50px;
+        margin-left: 20px;
+        color: #999999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .tl-icon {
+          width: 20px;
+          margin-right: 5px;
+        }
+
+        &:hover{
+          cursor: pointer;
+        }
+
+      }
+    }
+  }
+}
