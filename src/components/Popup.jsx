@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import CurrencyInput from 'react-currency-input';
 import classNames from 'classnames'
+import axios from 'axios'
 
 const Popup = ({ product, setOpenPopup, setIsProductMarked }) => {
-  const { title, description, price, imgUrl } = product
+  const { name, amount, imageUrl} = product
   const [value, setValue] = useState(null)
   const [otherValue, setOtherValue] = useState(false)
   const [newPrice, setNewPrice] = useState('')
@@ -14,9 +15,18 @@ const Popup = ({ product, setOpenPopup, setIsProductMarked }) => {
   }, [value])
 
   const notifyToApi = () => {
-    console.log("Haber ver apiiiye "+newPrice)
-    setIsProductMarked(true)
-    setOpenPopup(false)
+
+    axios.post('http://localhost:8080/user/notifyMe', {
+      "amount":newPrice,
+      "userId": 123,
+      "contentId": 1248295
+    }).then(() => {
+      console.log("Haber verdi apiyea"+newPrice)
+      setIsProductMarked(true)
+      setOpenPopup(false)
+    }).catch(()=> {
+      console.log("Olmadı")
+    })
   }
 
   const setPriceFromInput = (event, maskedvalue, floatvalue) => {
@@ -30,7 +40,7 @@ const Popup = ({ product, setOpenPopup, setIsProductMarked }) => {
 
   const calculateNewPrice = () => {
     if(value && !otherValue) {
-      setNewPrice(price - (value * price / 100))
+      setNewPrice(amount - (value * amount / 100))
     }
   }
 
@@ -42,19 +52,19 @@ const Popup = ({ product, setOpenPopup, setIsProductMarked }) => {
           <div className="close-button" onClick={() => setOpenPopup(false)}/>
         </div>
         <div className="popup-body">
-          <img className="popup-image" alt="asd" src={imgUrl}/>
+          <img className="popup-image" alt="asd" src={`https://img-trendyol.mncdn.com/mnresize/415/622${imageUrl}`}/>
           <div className="popup-product-description">
             <div className="pop-product-name">
-              {title}
+              {name}
             </div>
             <div className="pop-product-dsc">
-              {description}
+              iPhone 8 64 GB Altın iphone864gold
             </div>
             <div className={classNames({
               'pop-product-price': value === null,
               'old-price': value !== null
             })}>
-              {price} TL
+              {amount} TL
             </div>
             <div style={{display: 'flex', alignItems: 'center', fontSize: '20px', marginTop: '10px'}} className={classNames({
               'hidden': value === null,

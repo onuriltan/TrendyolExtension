@@ -3,22 +3,23 @@ import tl from "../assets/tl.svg"
 import dow_arrow from "../assets/dow-arrow.svg"
 
 const Product = ({ product, openPopupAction, openPopupValue }) => {
-  const { title, description, price, imgUrl} = product
+  const { name, amount, imageUrl} = product
+  console.log(product)
   return (
     <div className="product">
       <div className="img-container">
-        <img alt="prdct" className="img" src={imgUrl} />
+        <img alt="prdct" className="img" src={`https://img-trendyol.mncdn.com/mnresize/415/622${imageUrl}`} />
       </div>
       <div className="details">
         <div className="details-container">
           <div className="product-name">
-            {title}
+            {name}
           </div>
           <div className="product-detail">
-            {description}
+            iPhone 8 64 GB Altın iphone864gold
           </div>
           <div className="product-price">
-            {price} TL
+            {amount} TL
           </div>
         </div>
         <div className="details-container">
