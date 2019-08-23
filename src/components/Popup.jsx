@@ -1,18 +1,26 @@
 import React, {useState, useEffect} from 'react';
+import CurrencyInput from 'react-currency-input';
 import classNames from 'classnames'
 
 const Popup = ({ product, setOpenPopup }) => {
   const { title, description, price, imgUrl } = product
   const [value, setValue] = useState(null)
-  const [newPrice, setNewPrice] = useState(null)
+  const [otherValue, setOtherValue] = useState(false)
+  const [newPrice, setNewPrice] = useState('')
 
   useEffect( () => {
     calculateNewPrice()
+    // eslint-disable-next-line
   }, [value])
 
   const notifyToApi = () => {
-    console.log("Haber ver apiiiye")
+    console.log("Haber ver apiiiye "+newPrice)
     setOpenPopup(false)
+  }
+
+  const setPriceFromInput = (event, maskedvalue, floatvalue) => {
+    setNewPrice(maskedvalue)
+    setValue(maskedvalue)
   }
 
   const pickPriceDrop = param => {
@@ -20,7 +28,7 @@ const Popup = ({ product, setOpenPopup }) => {
   }
 
   const calculateNewPrice = () => {
-    if(value) {
+    if(value && !otherValue) {
       setNewPrice(price - (value * price / 100))
     }
   }
@@ -65,33 +73,41 @@ const Popup = ({ product, setOpenPopup }) => {
         <div className="popup-actions">
           <div className={classNames({
             'percent': true,
+            'hidden': otherValue,
             'picked-price': value === 5
           })} onClick={() => pickPriceDrop(5)}>
             5%
           </div>
           <div className={classNames({
             'percent': true,
+            'hidden': otherValue,
             'picked-price': value === 10
           })} onClick={() => pickPriceDrop(10)}>
             10%
           </div>
           <div className={classNames({
             'percent': true,
+            'hidden': otherValue,
             'picked-price': value === 20
           })} onClick={() => pickPriceDrop(20)}>
             20%
           </div>
+          <CurrencyInput className={classNames({
+            'hidden': !otherValue,
+            'pick-other-input': otherValue
+          })} onChangeEvent={setPriceFromInput} value={newPrice}  precision="3">
+          </CurrencyInput>
           <div className={classNames({
             'percent': true,
             'picked-price': value === "other"
-          })} onClick={() => pickPriceDrop("other")}>
+          })} onClick={() => setOtherValue(!otherValue)}>
             Diğer
           </div>
         </div>
         <div className="popup-notify-area">
           <div className={classNames({
-            'hidden': newPrice === null,
-            'popup-notify-btn': newPrice !== null
+            'hidden': newPrice === '',
+            'popup-notify-btn': newPrice !== ''
           })}
 
                onClick={() => notifyToApi()}

@@ -153,6 +153,13 @@
           background-color: #f27a1a !important;
         }
       }
+
+      .pick-other-input {
+        @extend .search-input-wrapper;
+        .enter-new-price {
+          @extend .search-input;
+         }
+      }
     }
     .popup-notify-area {
       display: flex;
