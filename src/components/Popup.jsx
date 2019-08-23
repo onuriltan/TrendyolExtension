@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import CurrencyInput from 'react-currency-input';
 import classNames from 'classnames'
 
-const Popup = ({ product, setOpenPopup }) => {
+const Popup = ({ product, setOpenPopup, setIsProductMarked }) => {
   const { title, description, price, imgUrl } = product
   const [value, setValue] = useState(null)
   const [otherValue, setOtherValue] = useState(false)
@@ -15,6 +15,7 @@ const Popup = ({ product, setOpenPopup }) => {
 
   const notifyToApi = () => {
     console.log("Haber ver apiiiye "+newPrice)
+    setIsProductMarked(true)
     setOpenPopup(false)
   }
 
@@ -99,7 +100,7 @@ const Popup = ({ product, setOpenPopup }) => {
           </CurrencyInput>
           <div className={classNames({
             'percent': true,
-            'picked-price': value === "other"
+            'picked-price': otherValue
           })} onClick={() => setOtherValue(!otherValue)}>
             Diğer
           </div>
@@ -108,10 +109,7 @@ const Popup = ({ product, setOpenPopup }) => {
           <div className={classNames({
             'hidden': newPrice === '',
             'popup-notify-btn': newPrice !== ''
-          })}
-
-               onClick={() => notifyToApi()}
-          >
+          })} onClick={() => notifyToApi()}>
             {newPrice} TL'ye düşünce haber ver
           </div>
         </div>
