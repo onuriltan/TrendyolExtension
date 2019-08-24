@@ -34,7 +34,7 @@ function App() {
   };
 
   const makeToast = () =>
-    toast("Ürün istediğiniz fiyata düştüğünde mailinize bildirim gelecektir",{
+    toast("Ürün, belirlediğiniz fiyata düşerse mailinize bildirim gelecektir",{
       className: css({
         borderRadius: '3px'
       }),
