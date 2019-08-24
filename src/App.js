@@ -11,6 +11,8 @@ function App() {
   const [product, setProduct] = useState(null)
   const [openPopup, setOpenPopup] = useState(false)
   const [isProductMarked, setIsProductMarked] = useState(false)
+  const [userDesiredAmount, setUserDesiredAmount] = useState(null)
+
 
   useEffect(() => {
     axios.get("http://localhost:8080/Product/1248295?userId=123").then(product => {
@@ -26,6 +28,10 @@ function App() {
       setTimeout(() => setIsProductMarked(false), 2000)
     }
   },[isProductMarked])
+
+  const setDesiredAmount = (amount) => {
+    setUserDesiredAmount(amount)
+  };
 
   const makeToast = () =>
     toast("Ürün istediğiniz fiyata düştüğünde mailinize bildirim gelecektir",{
@@ -47,9 +53,11 @@ function App() {
     <div className="App">
       <NavBar />
       <div style={{maxWidth: "1000px", margin: "0 auto"}}>
-        {product ? <Product product={product.data} openPopupAction={setOpenPopup} openPopupValue={openPopup}/> : null }
-        {openPopup ? <Popup product={product.data} setIsProductMarked={setIsProductMarked}
-                            setOpenPopup={setOpenPopup}/> : null}
+        {product ? <Product product={product.data} openPopupAction={setOpenPopup} openPopupValue={openPopup}
+                    setDesiredAmount={setDesiredAmount}
+        /> : null }
+        {openPopup ? <Popup product={product.data} setIsProductMarked={setIsProductMarked} 
+                            setOpenPopup={setOpenPopup} userDesiredAmount={userDesiredAmount}/> : null}
         <ToastContainer/>
       </div>
     </div>

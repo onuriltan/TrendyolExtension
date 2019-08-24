@@ -1,9 +1,14 @@
 import React from 'react';
-import tl from "../assets/tl.svg"
-import dow_arrow from "../assets/dow-arrow.svg"
+import notificationActive from "../assets/notification_active.svg"
+import notificationPassive from "../assets/notification_passive.svg"
 
-const Product = ({ product, openPopupAction, openPopupValue }) => {
+const Product = ({ product, openPopupAction, openPopupValue, setDesiredAmount }) => {
   const { name, amount, imageUrl} = product
+  const onClick = () => {
+    openPopupAction(!openPopupValue)
+    setDesiredAmount(product.userDesiredAmount)
+  };
+
   console.log(product)
   return (
     <div className="product">
@@ -40,9 +45,11 @@ const Product = ({ product, openPopupAction, openPopupValue }) => {
           <div className="buy-button">
             Sepete Ekle
           </div>
-          <div className="notify-on-pricedrop-btn" onClick={() => openPopupAction(!openPopupValue)}>
-            <img src={tl} alt="tl" className="tl-icon"/>
-            <img src={dow_arrow} alt="arrow" className="tl-icon"/>
+          <div className="notify-on-pricedrop-btn" onClick={() => onClick()}>
+            {
+              product.userDesiredAmount ? <img src={notificationActive} alt="tl" className="tl-icon" /> 
+              :  <img src={notificationPassive} alt="tl" className="tl-icon"/>
+            }
           </div>
           <div className="favorite-button">
           </div>

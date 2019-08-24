@@ -3,7 +3,7 @@ import CurrencyInput from 'react-currency-input';
 import classNames from 'classnames'
 import axios from 'axios'
 
-const Popup = ({ product, setOpenPopup, setIsProductMarked }) => {
+const Popup = ({ product, setOpenPopup, setIsProductMarked, userDesiredAmount }) => {
   const { name, amount, imageUrl} = product
   const [value, setValue] = useState(null)
   const [otherValue, setOtherValue] = useState(false)
@@ -13,6 +13,14 @@ const Popup = ({ product, setOpenPopup, setIsProductMarked }) => {
     calculateNewPrice()
     // eslint-disable-next-line
   }, [value])
+
+  useEffect(() => {
+    if(userDesiredAmount){
+      setNewPrice(userDesiredAmount)
+      setOtherValue(true);
+    }
+
+  }, [userDesiredAmount]) 
 
   const notifyToApi = () => {
 
@@ -29,9 +37,9 @@ const Popup = ({ product, setOpenPopup, setIsProductMarked }) => {
     })
   }
 
-  const setPriceFromInput = (event, maskedvalue, floatvalue) => {
-    setNewPrice(maskedvalue)
-    setValue(maskedvalue)
+  const setPriceFromInput = (event) => {
+    setNewPrice(event.target.value)
+    setValue(event.target.value)
   }
 
   const pickPriceDrop = param => {
@@ -48,7 +56,7 @@ const Popup = ({ product, setOpenPopup, setIsProductMarked }) => {
     <div className='popup'>
       <div className='popup-inner'>
         <div className="popup-header">
-          <h2>Fiyat Düşüşü Belirle</h2>
+          <h2>Fiyat Alarmı Belirle</h2>
           <div className="close-button" onClick={() => setOpenPopup(false)}/>
         </div>
         <div className="popup-body">
@@ -103,11 +111,11 @@ const Popup = ({ product, setOpenPopup, setIsProductMarked }) => {
           })} onClick={() => pickPriceDrop(20)}>
             20%
           </div>
-          <CurrencyInput className={classNames({
+          <input className={classNames({
             'hidden': !otherValue,
             'pick-other-input': otherValue
-          })} onChangeEvent={setPriceFromInput} value={newPrice}  precision="3">
-          </CurrencyInput>
+          })} onChange={setPriceFromInput} value={newPrice} >
+          </input>
           <div className={classNames({
             'percent': true,
             'picked-price': otherValue

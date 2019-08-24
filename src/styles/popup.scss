@@ -9,9 +9,9 @@
   margin: auto;
   background-color: rgba(0,0,0, 0.8);
   .popup-inner {
-    max-width: 550px;
+    max-width: 600px;
     max-height: 512px;
-    padding: 10px;
+    padding: 33px;
     position: absolute;
     left: 25%;
     right: 25%;
@@ -126,7 +126,7 @@
 
     .popup-actions {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
 
       .percent {
         width: 100px;
